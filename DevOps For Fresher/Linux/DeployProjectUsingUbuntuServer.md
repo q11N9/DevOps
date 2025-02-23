@@ -49,13 +49,13 @@ npm install
 ```
 There is a file `package.json` that guide us to build the project: 
 
-![image](https://hackmd.io/_uploads/rkgeI7WYJl.png)
+![image](https://github.com/user-attachments/assets/8545e27a-dce8-469c-a779-425ffe4c7a0b)
 
 The `"serve"` command will deploy our project after we `"build"` it. 
 
 Now, if you run `npm run build`, an error occurs: 
 
-![image](https://hackmd.io/_uploads/rkBA4XZFyx.png)
+![image](https://github.com/user-attachments/assets/1c457435-751c-4624-90d0-b4f1aa445786)
 
 because the version of our tool is older than the project's.
 
@@ -63,7 +63,7 @@ You can install Nodejs 18 in [here](https://www.stewright.me/install-nodejs-18-o
 
 Now we can build our project: 
 
-![image](https://hackmd.io/_uploads/rkNwSmZFye.png)
+![image](https://github.com/user-attachments/assets/d301ce11-4de8-459e-a29e-2fb027124fca)
 
 A `dist` directory is created, and we will use it to deploy our project. 
 
@@ -73,7 +73,7 @@ Deploy our project:
 npm run serve
 ```
 
-![image](https://hackmd.io/_uploads/B13uIQ-Y1l.png)
+![image](https://github.com/user-attachments/assets/7f75c09b-437a-426c-ac01-21633341084c)
 
 You can direct to those addresses to check the result. But this way is still not optimize. 
 
@@ -81,25 +81,25 @@ You can direct to those addresses to check the result. But this way is still not
 
 When we install Nginx, the default port is 80. 
 
-![image](https://hackmd.io/_uploads/Skq8DmZFyx.png)
+![image](https://github.com/user-attachments/assets/513eb0a4-1dd8-4a0e-96a4-e98bd2b5af83)
 
 Like I told, there must be a configuration file somewhere. Nginx's is saved in `/etc/nginx`
 
-![image](https://hackmd.io/_uploads/HyqJuQWtkx.png)
+![image](https://github.com/user-attachments/assets/601acea2-7e92-4098-b3dc-6a1af5b34d61)
 
 The default setting of Nginx is in `sites-available/default`. 
 
 After changing default port of Nginx to 8999: 
 
-![image](https://hackmd.io/_uploads/HJmvumbFJl.png)
+![image](https://github.com/user-attachments/assets/27977b48-f3ac-4bf7-a01d-00112db1314f)
 
-![image](https://hackmd.io/_uploads/S1iFdmbF1g.png)
+![image](https://github.com/user-attachments/assets/49f77247-230e-41c4-a211-2a71dfa928e8)
 
 Now it is listening in port 8999. 
 
 Next, we create a file config for our project in `conf.d/todolist.conf`. 
 
-![image](https://hackmd.io/_uploads/rJg4Y7-Fke.png)
+![image](https://github.com/user-attachments/assets/a58a0d32-2540-4127-8802-f100c5ba3a7c)
 
 with content:
 
@@ -126,11 +126,10 @@ nginx -s reload
 
 to reload your specific project. 
 
-![image](https://hackmd.io/_uploads/Hkz89X-Y1x.png)
+![image](https://github.com/user-attachments/assets/a7582d6b-3f21-48d7-905b-1d808bd4a5b5)
 
-::: info
-If you have `500 Internal Server Error`, check the owner and group of file `conf.d/todolist`. And then add user `www-data` (You can check it in `/etc/nginx/nginx.conf`) to group `todolist`. 
-:::
+> If you have `500 Internal Server Error`, check the owner and group of the file `conf.d/todolist`.  
+> Then, add user `www-data` (You can check it in `/etc/nginx/nginx.conf`) to group `todolist`.
 
 ### 2. React project - "Vision"
 This will use service of systemd to deploy project. 
@@ -212,7 +211,7 @@ Checking configuration file `pom.xml`:
 
 So we need a java version higher than 1.8. 
 
-Required: [Java](https://www.rosehosting.com/blog/how-to-install-java-17-lts-on-ubuntu-20-04/), [Maven](https://phoenixnap.com/kb/install-maven-on-ubuntu)w
+Required: [Java](https://www.rosehosting.com/blog/how-to-install-java-17-lts-on-ubuntu-20-04/), [Maven](https://phoenixnap.com/kb/install-maven-on-ubuntu)
 
 The next step is configuring our database. You can configure it in an independent server(recommended). 
 
@@ -220,13 +219,13 @@ There is a sql file in our folder and we will use [Mariadb](https://www.digitalo
 
 After installation, we have a socket called `mysqld` that opens in port 3306: 
 
-![image](https://hackmd.io/_uploads/S1Zlq5ZFkx.png)
+![image](https://github.com/user-attachments/assets/86d16e41-737a-470b-a87a-f0945065a39f)
 
 Because i have installed before and configure it, it would display as `0.0.0.0`. But in the start, it will be our localhost, which is `127.0.0.1`. 
 
 To configure it, first we need to stop **Mariadb** and then config the file `/etc/mysql/mariadb.conf.d/50-server.cnf`. 
 
-![image](https://hackmd.io/_uploads/S1jQs9-Fke.png)
+![image](https://github.com/user-attachments/assets/4dc7f103-b644-400d-b7f9-b7a85de786f8)
 
 There is a `bind-address` there. Change it to `0.0.0.0` and then re-check your netstat after `systemctl restart mariadb`. 
 
@@ -254,7 +253,7 @@ $ mysql -h 192.168.240.99 -P 3306 -u shoeshop -p
 
 and then enter your previous password. 
 
-![image](https://hackmd.io/_uploads/HklB69Ztkg.png)
+![image](https://github.com/user-attachments/assets/839387c1-54a2-428a-90fa-1b74d7c39de4)
 
 To import our database: 
 
@@ -265,7 +264,7 @@ source /home/fucalors/projects/shoeshop/shoe_shopdb.sql; --path to your database
 show tables; -- check the result
 ```
 
-![image](https://hackmd.io/_uploads/BJjCT9-tye.png)
+![image](https://github.com/user-attachments/assets/ea4bcaef-cefd-4e3c-853b-34b12fc9c06d)
 
 Now we need to import our database server into configuration file, which is in `src/main/resources/application.properties`. Replace `<>` to our information. 
 
@@ -286,8 +285,7 @@ Login to user `shoeshop` and install dependencies:
 ```bash
 $ mvn install -DskipTests=true
 ```
-
-![image](https://hackmd.io/_uploads/By1xbibYkg.png)
+![image](https://github.com/user-attachments/assets/e4f775fa-f012-4f9f-9f10-00bd1bbdf909)
 
 It will create a folder `target`.
 
@@ -300,7 +298,7 @@ This command will run our project in background and all outputs will be saved in
 
 You can stop project with `kill -9 <PID>`
 
-![image](https://hackmd.io/_uploads/Bybbzj-Y1l.png)
+![image](https://github.com/user-attachments/assets/818e75c4-9f59-44d2-9583-7fdc4a7e33e1)
 
 
 
