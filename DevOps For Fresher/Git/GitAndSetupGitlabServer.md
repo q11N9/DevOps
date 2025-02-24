@@ -9,11 +9,11 @@ Git has three main states that your files can reside in: **modified, staged, com
 - **Staged** means that you have marked a modified file in its current version to go into your next commit snapshot.
 - **Committed** means that the data is safely stored in your local database.
 
-![image](https://hackmd.io/_uploads/S1YjOIztkx.png)
+![image](https://github.com/user-attachments/assets/a81759cd-293f-4568-b186-71d1f9fb78d7)
 
 This is an image of Git architecture: 
 
-![image](https://hackmd.io/_uploads/rkcRuIGtye.png)
+![image](https://github.com/user-attachments/assets/267dae51-a8da-4842-82fd-bcd202d8bed8)
 
 # Install Gitlab server
 
@@ -34,7 +34,7 @@ Now we want to access our Gitlab through a local domain. First, configure file `
 
 Then configure file `/etc/gitlab/gitlab.rb`, change our `external_url` to our domain. 
 
-![image](https://hackmd.io/_uploads/BJk69IfFkg.png)
+![image](https://github.com/user-attachments/assets/f37fc630-5a06-48c5-8433-49efe011cf61)
 
 And run 
 
@@ -58,7 +58,7 @@ Then replace it with a new file with content:
 
 Congrats! You successfully installed your Gitlab server.
 
-![image](https://hackmd.io/_uploads/rJtjjUft1g.png)
+![image](https://github.com/user-attachments/assets/fc29be32-cec4-4170-9c41-2d0025c76de6)
 
 To login, you can use user `root` with password saved in 
 `/etc/gitlab/initial_root_password`
@@ -108,7 +108,7 @@ git push -u origin --tags
 # Deploy Gitworkflow
 This is a picture of Git workflow
 
-![image](https://hackmd.io/_uploads/ry9R5vfFJl.png)
+![image](https://github.com/user-attachments/assets/792c7d04-c4a8-4b1a-be04-9f338f339175)
 
 - Branch `main`: Contains user environment codes. 
 - Branch `develop`: Contains development environment codes. 
