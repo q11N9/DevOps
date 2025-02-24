@@ -7,7 +7,7 @@ But instead of install java 11, you need to install java 17. Follow this: [How t
 
 Next step, you need to modify `/etc/hosts`, add a new with IP and domain: 
 
-![image](https://hackmd.io/_uploads/H1Z6WB3YJg.png)
+![image](https://github.com/user-attachments/assets/96bd262f-5457-479a-b26e-b8fcf15f2da6)
 
 On your windows, add it to your file `hosts` in `C:\Windows\System32\drivers\etc` too. 
 
@@ -19,7 +19,7 @@ ufw allow 8080
 
 Now you can access into your Jenkins's domain in port 8080. The password is in `/var/lib/jenkins/secrets/initialAdminPassword`: 
 
-![image](https://hackmd.io/_uploads/rkAAzS3F1g.png)
+![image](https://github.com/user-attachments/assets/232e5e0f-6470-4e18-8ad9-767e8d01892c)
 
 Install default plugins after. 
 
@@ -55,27 +55,25 @@ adduser jenkins
 
 On our server used to deploy project (mine is **"devops"**), install Java 17 as well. 
 
-![image](https://hackmd.io/_uploads/SyPiFjGqkx.png)
+![image](https://github.com/user-attachments/assets/65959c10-c093-418a-bb21-db3d86454d42)
 
 Next step, a new node is required on Jenkins for running our pipeline. This node is connected to our project server(`devops`). Click in **Dashboard --> Manage Jenkisn -> Nodes --> New Node**. Your node's name should be the same as your server. 
 
-:::info
-A node is a machine (physical or virtual) that is part of the Jenkins environment. It can be **controller(master)** or **agent(slave)**
-:::
+> A node is a machine (physical or virtual) that is part of the Jenkins environment. It can be **controller(master)** or **agent(slave)**
 
-![image](https://hackmd.io/_uploads/Bk1E3jM9yl.png)
+![image](https://github.com/user-attachments/assets/b9d0f318-c142-4266-93c0-c68ddbf5b682)
 
 There are some categories here: 
 
-![image](https://hackmd.io/_uploads/Syrv3iG9kg.png)
+![image](https://github.com/user-attachments/assets/68a8070d-069f-4087-9cf0-b29dfe12a6f1)
 
-![image](https://hackmd.io/_uploads/r1EOnizcyx.png)
+![image](https://github.com/user-attachments/assets/fc52220b-4840-4549-903e-5acd1e8e28f2)
 
 **Number of executors**: How many build jobs that node can run concurrently
 
 **Remote root directory**: This will be in `/var/lib/jenkins` (you need to create one in your project server). On jenkins server, this will be like this: 
 
-![image](https://hackmd.io/_uploads/B1ItajMqke.png)
+![image](https://github.com/user-attachments/assets/1d9141e3-6006-4696-8b89-2370249b56fa)
 
 Remember to grant permission for `jenkins` user using 
 
@@ -85,17 +83,17 @@ chown jenkins. /var/lib/jenkins
 
 Next, a port for TCP for agent inbound need to add in. Go to **Manage Jenkins --> Security --> Agents**: 
 
-![image](https://hackmd.io/_uploads/ryRE0oM91l.png)
+![image](https://github.com/user-attachments/assets/01a5ab59-93c7-42a0-95ad-38e0216944b8)
 
 This port will use to communicate between agent and jenkins server. You should choose an unused port on jenkins server. I choose port 8999, checking `netstat`:
 
-![image](https://hackmd.io/_uploads/HkroRiz9yg.png)
+![image](https://github.com/user-attachments/assets/5ebf14d7-860d-4bea-aec9-659d57a7adba)
 
 A TCP port is open on port 8999.
 
 Come back and create a node. And an instruction to guide to run an agent appears. 
 
-![image](https://hackmd.io/_uploads/H1RZknzqkx.png)
+![image](https://github.com/user-attachments/assets/b5e75026-83e0-4eff-b0d6-a507c6a21a68)
 
 I will use **Run from agent command line, with the secret stored in a file: (Unix)**
 
@@ -107,15 +105,15 @@ java -jar agent.jar -url http://jenkins.fucalors.tech:8080/ -secret @secret-file
 
 Switch our directory to `/var/lib/jenkins`, `su` to `jenkins` user and run those command. 
 
-![image](https://hackmd.io/_uploads/r1fvghf5Jx.png)
+![image](https://github.com/user-attachments/assets/6362b065-ff19-4d33-96f8-386006f3759f)
 
 Now our agent should be working now
 
-![image](https://hackmd.io/_uploads/r15OxnG91x.png)
+![image](https://github.com/user-attachments/assets/3a888489-5dc8-494d-99b9-537c6c762c0d)
 
-:::info
-There is a note here. To automatically run your agent, convert it into a service so it will start after you turn on server. 
-Create and configure a file `/etc/systemd/system/jenkins-agent.service` with: 
+
+> There is a note here. To automatically run your agent, convert it into a service so it will start after you turn on server. 
+> Create and configure a file `/etc/systemd/system/jenkins-agent.service` with: 
 
 ```!
 [Unit]
@@ -133,81 +131,78 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-Reload daemon and start jenkins agent: 
+> Reload daemon and start jenkins agent: 
 
 ```bash
 systemctl daemon-reload
 systemctl start jenkins-agent
 ```
 
-:::
-
 Go to **Dashboard --> New Item --> Folder**. Create a folder named **Action_in_lab** to test our `shoeshop` project pipeline. 
 
 To connect to Gitlab, go to **Dashboard --> Manage Jenkins --> Plugins --> Available plugins**. Find for `gitlab` and `blue ocean`. **Blue Ocean** plugin will give use better appearance when monitoring process. 
 
-![image](https://hackmd.io/_uploads/HksaZ3z9yl.png)
+![image](https://github.com/user-attachments/assets/da78041c-f9d8-4288-ad82-061298b1c6d5)
 
-![image](https://hackmd.io/_uploads/HyJkfnfc1e.png)
+![image](https://github.com/user-attachments/assets/2e468a09-84ad-4711-90c4-51d175d7d9ec)
 
 After downloading plugins, we must configure to completely connect to Gitlab. Go to **Dashboard --> Manage Jenkins --> System**. Scroll down until you found `Gitlab` header. 
 
-![image](https://hackmd.io/_uploads/HkSOG2f5kl.png)
+![image](https://github.com/user-attachments/assets/e085722e-deec-4327-ad1c-53c453fbc29b)
 
 Enter required information about your Gitlab. About credentials:
 - Go to Gitlab, create a new user `jenkins` with access level `Admin`
 - Log in to user `jenkins`, **Edit profiles --> Access tokens**
 
-![image](https://hackmd.io/_uploads/Syx442Mq1x.png)
+![image](https://github.com/user-attachments/assets/3b706348-6127-432f-9d6d-75cea03e7c2f)
 
 Create a name and tick into `api` box then create one api token. Then Gitlab will give you a token. Save it to somewhere because it will appear when you leave this page. 
 
 Back to Jenkins, choose **Add credentials** and choose to add your Gitlab API Token
 
-![image](https://hackmd.io/_uploads/BkaUQpGqkx.png)
+![image](https://github.com/user-attachments/assets/09e1753e-cfbd-4bf3-aefb-a9ed49426b31)
 
 Now your Jenkins is connected to Gitlab. 
 To run a pipeline, create a pipeline `shoeshop` in folder **Action_in_lab** we created before. 
 In **Configure** of our pipeline, there are some fields that we need to tick: 
 
-![image](https://hackmd.io/_uploads/HkjW4aGc1x.png)
+![image](https://github.com/user-attachments/assets/228a83ef-319b-4259-b7b4-265edaf54b7e)
 
-![image](https://hackmd.io/_uploads/H1rGEpGq1l.png)
+![image](https://github.com/user-attachments/assets/d250aa73-6898-47bf-9d66-8b6d6e9e3952)
 
 - **Discard old build**: Choose it and keep how many builds you want to keep 
 
-![image](https://hackmd.io/_uploads/H11LNaM91g.png)
+![image](https://github.com/user-attachments/assets/b282318e-395e-4f4d-b573-bef14f215f85)
 
 - **Build when a change is pushed to GitLab. GitLab webhook URL: (URL)**
 
-![image](https://hackmd.io/_uploads/HJvMSTfckx.png)
+![image](https://github.com/user-attachments/assets/f807c3e8-790f-4b08-9b66-7763337ce5c1)
 
 - **Pipeline**:
 
-![image](https://hackmd.io/_uploads/rkBwBTG5ye.png)
+![image](https://github.com/user-attachments/assets/f7c65fcb-2e02-4e5d-b216-eafa369dee3e)
 
 This one you need to choose the Git in `SCM`, for the Git repo, use yours, for the credentials, use user `jenkins` we created before. 
 
 **Branch to build**: 
 
-![image](https://hackmd.io/_uploads/HkZkU6f9yx.png)
+![image](https://github.com/user-attachments/assets/7c946f03-58a8-42c3-a178-7e147ee45b3a)
 
 I will build on my branch `develop`. You can add more branches too. Save and you can see your pipeline is working
 
-![image](https://hackmd.io/_uploads/rymB86z5yg.png)
+![image](https://github.com/user-attachments/assets/c7dba3da-af2d-4ee6-9811-0266237120f7)
 
 But we're not done yet. To automatically notify an external service (Jenkins, Slack, ...) you need to configure Webhook on Gitlab.
-:::info
-A GitLab Webhook is a mechanism that allows GitLab to automatically notify an external service (like Jenkins, Slack, or a deployment server) whenever a specific event occurs in a repository.
-:::
+
+> A GitLab Webhook is a mechanism that allows GitLab to automatically notify an external service (like Jenkins, Slack, or a deployment server) whenever a specific event occurs in a repository.
 
 Before that, go to **Settings** of the Admin, choose to **Network --> Outbound Request**. Tick to the box **Allow requests to the local network from web hooks and services**:
 
-![image](https://hackmd.io/_uploads/SJtFPaMqJl.png)
+![image](https://github.com/user-attachments/assets/9c05f332-aaf5-4bff-b2af-eb73b0a918a8)
 
 Choose your project on Gitlab, go to **Settings --> Webhook**
 
-![image](https://hackmd.io/_uploads/r1NJP6z9Jg.png)
+![image](https://github.com/user-attachments/assets/6c16f466-adb2-4809-8e82-7017b64c8c5b)
 
 Our format for URL will be: 
 
@@ -217,35 +212,33 @@ http://<user on jenkins>:<token of that user on jenkins>@<jenkins's address>/pro
 
 About token, click in your profile picture on Jenkins, choose **Security** or **Configure** if your system is the older version.
 
-![image](https://hackmd.io/_uploads/H1Szd6Gckg.png)
+![image](https://github.com/user-attachments/assets/def9abe1-24ca-4a40-b981-c3c3c12dd0c1)
 
 Create a token: 
 
-![image](https://hackmd.io/_uploads/rki8_aGcJe.png)
+![image](https://github.com/user-attachments/assets/2ef4b178-e7f6-4853-98f3-d58e60add111)
 
 My final format of URL is: 
 
 ```!
 http://admin:<token>@jenkins.fucalors.tech/project/Action_in_lab/shoeshop
 ```
-:::warning
-Remember to add host on gitlab server
 
-![image](https://hackmd.io/_uploads/rkM1K6f5kx.png)
+> Remember to add host on gitlab server
 
-:::
+![image](https://github.com/user-attachments/assets/3d165603-a871-4a8b-8846-b020cca9c2c6)
 
 Choose which events will trigger the pipeline
 
-![image](https://hackmd.io/_uploads/SkqItaMcJg.png)
+![image](https://github.com/user-attachments/assets/c90e3d12-21ed-4de8-8e6b-8a0c06f9663c)
 
 And disable SSL verification
 
-![image](https://hackmd.io/_uploads/B1TwK6M5ye.png)
+![image](https://github.com/user-attachments/assets/02c1a6ee-1761-4602-879c-2cfa14a2a42f)
 
 Now you will get your own webhook:
 
-![image](https://hackmd.io/_uploads/Bk1tK6f9yx.png)
+![image](https://github.com/user-attachments/assets/3dc298f8-58d8-4068-ad2f-3e8a8f28ea74)
 
 To successfully run your pipeline, we need to create a Jenkinfile in branch we want to run pipeline. I will create one in branch `develop`: 
 
@@ -288,17 +281,17 @@ pipeline {
 
 Those are nearly the same as the `.gitlab-ci.yml` we created before but different in syntax. Commit and see if our pipeline works or not: 
 
-![image](https://hackmd.io/_uploads/ByMbsaGqke.png)
+![image](https://github.com/user-attachments/assets/1b38a43a-32c2-415b-b891-bfb33f0c0cff)
 
 Go to Blue Ocean for better appearance: 
 
-![image](https://hackmd.io/_uploads/S1JBi6Gq1l.png)
+![image](https://github.com/user-attachments/assets/af48522a-9e0a-47ac-9dde-a9e7867bc61d)
 
 Here you can what happened in each stage. 
 
 Check result: 
 
-![image](https://hackmd.io/_uploads/rymFsaf5yg.png)
+![image](https://github.com/user-attachments/assets/e7693844-f322-49db-b1f2-2dd864ec1674)
 
 # IV. Implement Jenkins CI/CDelivery
 
@@ -361,17 +354,17 @@ We use `try-catch` and `env.useChoice` to get the confirmation of user. Other st
 
 # V. Jenkins CI/CD advanced for production deployment using Jenkins parameters
 
-:::info
-A Jenkins parameter allows users to dynamically provide input values when triggering a build. This makes Jenkins jobs more flexible and customizable.
-:::
+
+> A Jenkins parameter allows users to dynamically provide input values when triggering a build. This makes Jenkins jobs more flexible and customizable.
+
 This part, you need to have knowledge about Groovy. Before that, install `Active Choice` plugin: 
 
-![image](https://hackmd.io/_uploads/B1xwCYm51x.png)
+![image](https://github.com/user-attachments/assets/61db9ec1-9538-4f5a-9fde-d4d750861441)
 
 This will be more flexible for your project. 
 Configure our pipeline with this option (before installing plugin):
 
-![image](https://hackmd.io/_uploads/HkJAhtX9Jl.png)
+![image](https://github.com/user-attachments/assets/ce1f17eb-687f-4ab0-b4c5-6d2128a0fb4c)
 
 There are some option here for us to choose
 - **Boolean parameter**: Checkbox (true/false).
@@ -383,23 +376,23 @@ There are some option here for us to choose
 
 After installing plugin, it would be like this 
 
-![image](https://hackmd.io/_uploads/SyanAtm5yx.png)
+![image](https://github.com/user-attachments/assets/72246125-30df-47a5-a21a-3400b5a61f05)
 
 Choose **Active Choices Parameter** and modify like this 
 
-![image](https://hackmd.io/_uploads/HySuJqm5ye.png)
+![image](https://github.com/user-attachments/assets/f8c458e0-9b2b-40d9-b8e0-ba0ab1a216be)
 
 Save and you will see this in your pipeline
 
-![image](https://hackmd.io/_uploads/HJhY1qQc1e.png)
+![image](https://github.com/user-attachments/assets/8b763dd6-dea4-4a63-b9e8-0a402937ecf0)
 
 Add some parameters to prepare: 
 
-![image](https://hackmd.io/_uploads/B1RDFiH9Je.png)
+![image](https://github.com/user-attachments/assets/25c649b2-c15c-4e4c-8594-e83d60ab927c)
 
-![image](https://hackmd.io/_uploads/rkbtZ9m9ke.png)
+![image](https://github.com/user-attachments/assets/7d1a3607-cb67-4d44-87bf-d000df4f1ae0)
 
-![image](https://hackmd.io/_uploads/rkDdZhS9Jl.png)
+![image](https://github.com/user-attachments/assets/1a2f21e2-ece8-452b-bb5d-b6996b6fb4cf)
 
 Script:
 ```groovy!
@@ -417,7 +410,7 @@ if (action == "rollback"){
 }
 ```
 
-![image](https://hackmd.io/_uploads/rk3GN5Xqyg.png)
+![image](https://github.com/user-attachments/assets/8d25e5c2-4efc-4edc-9750-acab4b3e6085)
 
 Now for our Pipeline script. I will go step by step.
 1. We build a script to run project and kill previous process before running: 
@@ -460,16 +453,16 @@ node(params.server){
 
 We defined 2 functions: `getProcessId` and `startProcess`. Variable `processId` in function `getProcessId` took the stdout of next command, with label for better reading in Blue Ocean: 
 
-![image](https://hackmd.io/_uploads/B1H0PcBqkx.png)
+![image](https://github.com/user-attachments/assets/5a01b064-9df4-49ea-82d8-e22e8b16321d)
 
 Function `startProcess` is labeled with stage `start`. If there is no previous processName, it will return `cannot start process`.  
 If it worked, the pipeline will echo out a message: 
 
-![image](https://hackmd.io/_uploads/BkBB_9Sc1l.png)
+![image](https://github.com/user-attachments/assets/539d8cae-cc57-4d8f-859f-08ac0e59577b)
 
 You can check in Blue Ocean or in the main page of project. 
 
-![image](https://hackmd.io/_uploads/Hk80PiBqyl.png)
+![image](https://github.com/user-attachments/assets/55ef4308-4538-481d-94e1-67d899f865c6)
 
 2. Stop Process
 
@@ -601,26 +594,25 @@ node(params.server){
 And also, we add a description for our process with `currentBuild.description`. 
 For instance, I use latest hash code commit: 
 
-![image](https://hackmd.io/_uploads/Sk4YijBqyg.png)
+![image](https://github.com/user-attachments/assets/b7a532bf-2ca3-47ba-9fdb-044ff27c094b)
 
 After pulled from Gitlab, we build it with maven then copy it to our deploy folder, change permission and run project. 
 
-![image](https://hackmd.io/_uploads/ByHHpsHckx.png)
+![image](https://github.com/user-attachments/assets/c97c8272-6086-47d1-873f-6a464cca1f83)
 
 4. Rollback
 
 First, we create 2 another folder for run project and backup (remember to create it under `shoeshop` user)
 
-
 And change our `folderDeploy`, also add 2 more variables
 
-![image](https://hackmd.io/_uploads/r1faAjHcyg.png)
+![image](https://github.com/user-attachments/assets/1c93f80e-a5b2-4963-8230-dde117141803)
 
 And we need to approve our code that we created the `rollback_version` parameter before: 
 
-![image](https://hackmd.io/_uploads/SkjdynSc1l.png)
+![image](https://github.com/user-attachments/assets/38035224-2b17-4434-9351-67345d7f9b6f)
 
-![image](https://hackmd.io/_uploads/Hy4nbhScye.png)
+![image](https://github.com/user-attachments/assets/d2162a46-9c70-4c4c-b190-ea784ea9629d)
 
 (Choose action `rollback` and F5 in page Credentials)
 
@@ -671,8 +663,8 @@ So before it upcode, it will backup and then do the rest of works.
 
 When we choose action rollback, rollback versions will appear: 
 
-![image](https://hackmd.io/_uploads/HkQfd2H5kl.png)
+![image](https://github.com/user-attachments/assets/1698d590-1b81-44ea-9a27-0b12c6a7bab8)
 
 And run any upcode process to see the result:
 
-![image](https://hackmd.io/_uploads/SyEE_hrcyx.png)
+![image](https://github.com/user-attachments/assets/5520ae84-1883-455f-b8a6-30955e0672e9)
