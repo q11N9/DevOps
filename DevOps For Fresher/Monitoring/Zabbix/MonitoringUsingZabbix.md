@@ -7,7 +7,7 @@ It provides real-time monitoring, data collection, alerting, and visualization t
 # II. How to install Zabbix
 In this article, i will install Zabbix 6.4 on Ubuntu 20.04 Focal. You can see more in here: [Download Zabbix 6.4](https://www.zabbix.com/download?zabbix=6.4&os_distribution=ubuntu&os_version=20.04&components=server_frontend_agent&db=mysql&ws=apache)
 
-![image](https://hackmd.io/_uploads/HJ0EH-851x.png)
+![image](https://github.com/user-attachments/assets/15c92d9c-4ec2-4d78-9f35-05e78fc48654)
 
 Install Zabbix repo: 
 
@@ -79,15 +79,15 @@ $ systemctl restart zabbix-server zabbix-agent apache2
 
 Now, remember to modify your `/etc/hosts`:
 
-![image](https://hackmd.io/_uploads/HkjTuzUcyg.png)
+![image](https://github.com/user-attachments/assets/09972027-69e0-4af1-a11e-9467f88029a4)
 
 Also on your windows:
 
-![image](https://hackmd.io/_uploads/HJJLYMI5yx.png)
+![image](https://github.com/user-attachments/assets/91410e75-8a22-4de2-9294-607c80e93679)
 
 Configure file `/etc/apache2/sites-available/000-default.conf` for not adding `/zabbix` each time you visit to your zabbix site.
 
-![image](https://hackmd.io/_uploads/SJCTYGL9Je.png)
+![image](https://github.com/user-attachments/assets/c7da4e92-a7e7-479e-9914-664a9851870a)
 
 And restart apache2 service:
 
@@ -97,33 +97,33 @@ systemctl restart apache2
 
 It's worked perfectly now 
 
-![image](https://hackmd.io/_uploads/ryXrqM8qJl.png)
+![image](https://github.com/user-attachments/assets/36c17045-a60a-49b1-9ea9-abd38bfee135)
 
 Configure DB connection; 
 
-![image](https://hackmd.io/_uploads/HJL6of8qJe.png)
+![image](https://github.com/user-attachments/assets/231da9fb-31be-46af-9b4c-a8e5fdc62c5c)
 
 Default database port is 3306 if you left it 0. 
 
 Settings
 
-![image](https://hackmd.io/_uploads/S147nzIq1x.png)
+![image](https://github.com/user-attachments/assets/3978ea2f-54de-4a28-ac05-1f9a1b03959a)
 
 And finally login: 
 
-![image](https://hackmd.io/_uploads/BJWvnG89kl.png)
+![image](https://github.com/user-attachments/assets/90bc69e8-52a0-4640-b76c-7083f25fad72)
 
-The default account is `Admin-zabbix`. 
+The default account is `Admin/zabbix`. 
 
-![image](https://hackmd.io/_uploads/HyT_2GL91e.png)
+![image](https://github.com/user-attachments/assets/45dab0b5-0d56-4928-883d-46487cf64053)
 
-In **Monitoring -> Hosts **, there is a Zabbix agent we created before 
+In **Monitoring -> Hosts**, there is a Zabbix agent we created before 
 
-![image](https://hackmd.io/_uploads/BkbypfI5Je.png)
+![image](https://github.com/user-attachments/assets/eb6b461d-de33-42a6-81ce-ef9e402c4ca2)
 
 You can check it on your Zabbix server: 
 
-![image](https://hackmd.io/_uploads/B1aZpMLqkl.png)
+![image](https://github.com/user-attachments/assets/241938bf-e54e-4117-a01b-ccb0cc23731a)
 
 Now if you want to monitor any servers, just install `zabbix-agent` on it. 
 
@@ -143,39 +143,39 @@ systemctl restart zabbix-agent
 
 In Zabbix, go to **Monitoring -> Hosts -> Create host**
 
-![image](https://hackmd.io/_uploads/BJsBJ7I5Jx.png)
+![image](https://github.com/user-attachments/assets/6efdbca0-2763-4d97-860c-ebcb1d9a6ecb)
 
-![image](https://hackmd.io/_uploads/HJDokmUqyg.png)
+![image](https://github.com/user-attachments/assets/163cd6e1-c77d-4c2e-8bbf-ac5cea56c10a)
 
 It should work now 
 
-![image](https://hackmd.io/_uploads/BJ_yxXU9Jl.png)
+![image](https://github.com/user-attachments/assets/6dd8a986-8c68-43f9-a3b2-f526e6a0d02c)
 
 # III. Use Item and Trigger in Zabbix
 If we want our shoeshop project somehow trigger our monitor, go to **Monitoring -> Hosts** an click into your hosts, choose **Items -> Create Item**
 
-![image](https://hackmd.io/_uploads/HyyKVXU5yx.png)
+![image](https://github.com/user-attachments/assets/46af8558-b53d-424a-afde-73c695f36d70)
 
 Configure it
 
-![image](https://hackmd.io/_uploads/BkzNr7I5kx.png)
+![image](https://github.com/user-attachments/assets/6f72d3ae-2845-4670-9d62-919aa2fdc200)
 
 Stop project and test:
 
-![image](https://hackmd.io/_uploads/rkxtDmL5yl.png)
+![image](https://github.com/user-attachments/assets/def6ecdb-b016-42dd-84c1-15ea5af94445)
 
 Now for trigger. Go to `Trigger` tag: 
 
-![image](https://hackmd.io/_uploads/B1eAPQ8c1e.png)
+![image](https://github.com/user-attachments/assets/20b63a41-8d04-430c-a14f-5f6433dc0101)
 
 And create a new Trigger
 
-![image](https://hackmd.io/_uploads/ryPrumU91e.png)
+![image](https://github.com/user-attachments/assets/da1b5605-728c-4010-891b-77afa3950d38)
 
 Now we can saw the problem now 
 
-![image](https://hackmd.io/_uploads/rJc_um85ke.png)
+![image](https://github.com/user-attachments/assets/87f0ebf6-587c-4d3f-b0b6-f3b1672b2ff4)
 
 Using Jenkins to start project again, you can see it is resolved now 
 
-![image](https://hackmd.io/_uploads/r1rCdmL9Jl.png)
+![image](https://github.com/user-attachments/assets/1d29cfeb-6c7a-4efb-8d7e-9aaecb33cf23)
