@@ -8,7 +8,7 @@ Docker helps us to create a "virtual environment", let us run applications witho
 # 2. Docker architecture
 Docker uses a client-server architecture
 
-![image](https://hackmd.io/_uploads/HkNMFG2Dyg.png)
+![image](https://github.com/user-attachments/assets/1e85a2cf-c400-4554-bbbb-c867da03bd6d)
 
 You can connect `Docker clients` to a remote `Docker daemon`, which does the heavy of building, running and distributing our `Docker container`. 
 For connection between client and daemon, using a REST API, over UNIX sockets or a network interface. Another `Docker client` is `Docker Compose`
@@ -276,7 +276,7 @@ The registry is running but cannot login. To do that, follow this instruction.
 
 Copy file `domain.cert` to `/etc/docker/cert.d` under the name `ca.cert`
 
-![image](https://hackmd.io/_uploads/rJd3lSPFke.png)
+![image](https://github.com/user-attachments/assets/40e8d753-884c-42bb-84cc-2f0afcf7a228)
 
 And restart Docker:
 
@@ -294,11 +294,11 @@ docker login <host_address>
 (any users could login into). 
 So now just do the same as we did with Docker Hub before: 
 
-![image](https://hackmd.io/_uploads/S1NQNHDt1e.png)
+![image](https://github.com/user-attachments/assets/9d907366-7d55-43ad-ad6b-5ae0d3e7d890)
 
 Checking our website(in `/v2/_catalog`): 
 
-![image](https://hackmd.io/_uploads/Hy24VSPYye.png)
+![image](https://github.com/user-attachments/assets/06087f65-6fb3-4973-ade0-a92dbac02f67)
 
 # 5. Using Docker to establish CI/CD pipeline
 The principle of this part is to create an imange of our project, then push it to our registry we established before (if you have money, i recommended to use Harbor with AWS Cloud). After that, we pulled it to our local machine and run it. 
